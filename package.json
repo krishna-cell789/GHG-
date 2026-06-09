@@ -1,0 +1,9 @@
+{
+  "name": "ghg-accounting-saas",
+  "private": true,
+  "workspaces": ["apps/*","packages/*"],
+  "scripts": {
+    "dev": "echo Monorepo bootstrap pending",
+    "build": "echo Build pending"
+  }
+}
