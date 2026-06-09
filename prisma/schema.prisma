@@ -7,24 +7,70 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Organization {
+model User {
   id        String   @id @default(uuid())
-  name      String
+  email     String   @unique
+  fullName  String
+  role      String
   createdAt DateTime @default(now())
+}
+
+model Organization {
+  id          String   @id @default(uuid())
+  name        String
+  industry    String?
+  country     String?
+  createdAt   DateTime @default(now())
 }
 
 model Facility {
   id             String   @id @default(uuid())
   name           String
+  location       String?
   organizationId String
   createdAt      DateTime @default(now())
 }
 
 model EmissionFactor {
-  id          String @id @default(uuid())
+  id          String   @id @default(uuid())
   category    String
   fuelType    String?
+  source      String?
   factorValue Float
   unit        String
   year        Int
+}
+
+model ActivityData {
+  id          String   @id @default(uuid())
+  facilityId  String
+  sourceType  String
+  quantity    Float
+  unit        String
+  period      DateTime
+  createdAt   DateTime @default(now())
+}
+
+model EmissionCalculation {
+  id              String   @id @default(uuid())
+  activityDataId  String
+  scope           String
+  co2e            Float
+  createdAt       DateTime @default(now())
+}
+
+model Evidence {
+  id          String   @id @default(uuid())
+  facilityId  String
+  fileName    String
+  fileUrl     String
+  createdAt   DateTime @default(now())
+}
+
+model AuditLog {
+  id          String   @id @default(uuid())
+  entityType  String
+  entityId    String
+  action      String
+  createdAt   DateTime @default(now())
 }
